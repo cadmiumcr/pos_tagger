@@ -1,0 +1,18 @@
+name: cadmium_pos_tagger
+version: 0.1.0
+
+authors:
+  - Rémy Marronnier <rmarronnier@gmail.com>
+
+crystal: 0.30.1
+
+dependencies:
+  cadmium_classifier:
+    github: cadmiumcr/classifier
+
+development_dependencies:
+  ameba:
+    github: veelenga/ameba
+    version: 0.10.0
+
+license: MIT
