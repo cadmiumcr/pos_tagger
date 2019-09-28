@@ -18,9 +18,16 @@ A Part Of Speech (POS) Tagger. It relies for now on `Cadmium::Classifier::Viterb
 
 ```crystal
 require "pos_tagger"
-```
 
-TODO: Write usage instructions here
+example = "Cadmium is getting better and better."
+
+pp Cadmium::POSTagger.new.tag(example)[2]
+
+# Cadmium::Token(@verbatim="getting", @pos="VBG", @univ_pos=:verb, @morphology=:none, @is_start_sentence=false, @lemma=nil, @is_punctuation=false, @is_oov=false, @language=:en)
+
+
+
+```
 
 ## Contributing
 

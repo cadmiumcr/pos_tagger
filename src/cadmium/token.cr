@@ -1,17 +1,25 @@
 module Cadmium
   # An individual token — i.e. a word, punctuation symbol, whitespace, etc
   struct Token
-    property verbatim : String = ""
-    property pos : String = ""
-    property univ_pos : String = ""
-    property morphology : Hash(String, String) = {"" => ""}
-    property is_start_sentence : Bool = false
-    property vector : Vector? = nil
+    property verbatim : String
+    property pos : String
+    property univ_pos : Symbol
+    property morphology : Symbol | String | Nil
+    property is_start_sentence : Bool
+    # property vector : Vector? = nil
     property lemma : String?
-    property is_punctuation : Bool = false
-    property is _oov : Bool = false
+    property is_punctuation : Bool
+    property is_oov : Bool = false
+    property language : Symbol # language of the document the token is part of.
 
-    def initialize
+    def initialize(verbatim = "", pos = "", univ_pos = :none, morphology = :none, is_start_sentence = false, is_punctuation = false, language = :en)
+      @verbatim = verbatim
+      @pos = pos
+      @univ_pos = univ_pos
+      @morphology = morphology
+      @is_start_sentence = is_start_sentence
+      @is_punctuation = is_punctuation
+      @language = language
     end
 
     def size
@@ -23,10 +31,10 @@ module Cadmium
       # avoid lemmatization entirely.
       return false if self.morphology.nil?
       others = self.morphology.keys.map { |key| !["Number", "POS", "VerbForm", "Tense"].includes?(key) }
-      return true if self.univ_pos == "noun" && self.morphology["number"] == "sing"
-      return true if self.univ_pos == "verb" && self.morphology["verbform"] == "inf"
-      return true if self.univ_pos == "verb" && (self.morphology["verbform"] == "fin" && self.morphology["tense"] == "pres" && self.morphology["number"].nil? && others.empty?) # cyclomatic complexity
-      return true if self.univ_pos == "adj" && self.morphology["degree"] == "pos"
+      return true if self.univ_pos == :noun && self.morphology["number"] == "sing"
+      return true if self.univ_pos == :verb && self.morphology["verbform"] == "inf"
+      return true if self.univ_pos == :verb && (self.morphology["verbform"] == "fin" && self.morphology["tense"] == "pres" && self.morphology["number"].nil? && others.empty?) # cyclomatic complexity
+      return true if self.univ_pos == :adj && self.morphology["degree"] == "pos"
       return true if self.morphology.values.includes?(["VerbForm_inf", "VerbForm_none", "Number_sing", "Degree_pos"])
       false
     end
