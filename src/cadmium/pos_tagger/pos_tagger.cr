@@ -19,7 +19,10 @@ module Cadmium
     end
 
     def tag(tokens : Array(String) | String) : Array(Token)
-      tokens = tokens.tokenize(Word) if tokens.is_a?(String)
+      tokenizer = Cadmium::Tokenizer::Pragmatic.new(
+        language: @language
+      )
+      tokens = tokenizer.tokenize(tokens) if tokens.is_a?(String)
       tag_map = get_language_by_code(@language).new.tag_map
       tagged_tokens = Array(Token).new
       @classifier.load_model(@model)

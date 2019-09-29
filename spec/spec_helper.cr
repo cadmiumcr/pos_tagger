@@ -1,3 +1,5 @@
 require "spec"
 require "../src/cadmium/pos_tagger"
+require "../src/cadmium/document"
+require "../src/cadmium/token"
 require "../src/cadmium/languages/*"

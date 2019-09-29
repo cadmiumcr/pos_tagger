@@ -2,8 +2,12 @@ module Cadmium
   struct Corpus
     property documents : Array(Document)
 
+    def initialize(document)
+      @documents += document
+    end
+
     def size
-      self.documents.map { |document| document.verbatim }.join.size
+      @documents.sum { |document| document.size }
     end
   end
 
@@ -11,12 +15,43 @@ module Cadmium
   struct Document
     property verbatim : String
     property language : Symbol
-    property sentences : Array(String)
-    property tokens : Array(Token)
-    property readability : Float64
+    property sentences : Array(Sentence)
+    property readability : Float64 = 0.0
+
+    def initialize(verbatim = "", language = :en, pos_tag = false)
+      @verbatim = verbatim
+      @language = language
+      sentences = Cadmium::Util::Sentence.sentences(@verbatim)
+      @sentences = sentences.map do |sentence|
+        Sentence.new(verbatim: sentence, language: @language, pos_tag: pos_tag)
+      end
+    end
+
+    def size
+      self.verbatim.size
+    end
   end
 
-  def size
-    self.verbatim.size
+  struct Sentence
+    property verbatim : String
+    property language : Symbol
+    property tokens : Array(Token)
+
+    def initialize(verbatim = "", language = :en, pos_tag = false)
+      @tokens = [Token.new]
+      @verbatim = verbatim
+      @language = language
+      tokenizer = Cadmium::Tokenizer::Pragmatic.new(
+        language: @language
+      )
+      tokens = tokenizer.tokenize(@verbatim) unless pos_tag
+      @tokens = Cadmium::POSTagger.new(language: @language).tag(@verbatim) if pos_tag
+      @tokens = tokens.map { |token| Token.new(verbatim: token, language: @language) } if tokens.is_a?(Array(String))
+      @tokens.first.is_start_sentence = true # doesn't work. Why ?
+    end
+
+    def size
+      self.verbatim.size
+    end
   end
 end
