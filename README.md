@@ -1,5 +1,8 @@
 # pos_tagger
 
+![](https://github.com/cadmiumcr/pos_tagger/workflows/pos_tagger/badge.svg)
+
+
 A Part Of Speech (POS) Tagger. It relies for now on `Cadmium::Classifier::Viterbi`.
 
 ## Installation
