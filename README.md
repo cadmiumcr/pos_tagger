@@ -11,7 +11,7 @@ A Part Of Speech (POS) Tagger. It relies for now on `Cadmium::Classifier::Viterb
 
    ```yaml
    dependencies:
-     pos_tagger:
+     cadmium_pos_tagger:
        github: cadmiumcr/pos_tagger
    ```
 
