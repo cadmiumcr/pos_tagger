@@ -1,6 +1,6 @@
 module Cadmium
   # An individual token — i.e. a word, punctuation symbol, whitespace, etc
-  struct Token
+  class Token
     property verbatim : String
     property pos : String?
     property univ_pos : Symbol?

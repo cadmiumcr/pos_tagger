@@ -45,9 +45,15 @@ module Cadmium
         language: @language
       )
       tokens = tokenizer.tokenize(@verbatim) unless pos_tag
-      @tokens = Cadmium::POSTagger.new(language: @language).tag(@verbatim) if pos_tag
+      pos_tagger = Cadmium::POSTagger.new(language: @language)
+      @tokens = pos_tagger.tag(@verbatim) if pos_tag
       @tokens = tokens.map { |token| Token.new(verbatim: token, language: @language) } if tokens.is_a?(Array(String))
-      @tokens.first.is_start_sentence = true # doesn't work. Why ?
+      @tokens.first.is_start_sentence = true
+      if pos_tag
+        @tokens.each do |token|
+          token.is_oov = true if pos_tagger.observation_space.includes?(token.verbatim)
+        end
+      end
     end
 
     def size

@@ -15,7 +15,7 @@ module Cadmium
       @language = language
     end
 
-    private def to_univ_pos(pos : String, tag_map) : String
+    private def to_univ_pos(pos : String, tag_map) : Symbol
     end
 
     def tag(tokens : Array(String) | String) : Array(Token)
