@@ -51,7 +51,7 @@ module Cadmium
       @tokens.first.is_start_sentence = true
       if pos_tag
         @tokens.each do |token|
-          token.is_oov = true if pos_tagger.observation_space.includes?(token.verbatim)
+          token.is_oov = true if pos_tagger.classifier.observation_space.includes?(token.verbatim)
         end
       end
     end
