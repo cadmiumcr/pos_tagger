@@ -14,7 +14,7 @@ module Cadmium
     property is_oov : Bool = false # Out of vocabulary (ie not present in the pos observation space)
     property language : Symbol     # language of the sentence / document the token is part of.
 
-    def initialize(verbatim = "", pos = "", univ_pos = :none, morphology = :none, is_start_sentence = false, is_punctuation = false, language = :en)
+    def initialize(verbatim = "", pos = "", univ_pos = nil, morphology = :none, is_start_sentence = false, is_punctuation = false, language = :en)
       @verbatim = verbatim
       @pos = pos
       @univ_pos = univ_pos
