@@ -30,7 +30,6 @@ module Cadmium
       @verbatim.size
     end
 
-    # ameba:disable Metrics/CyclomaticComplexity
     def is_base_form? : Bool
       # Check whether we're dealing with an uninflected paradigm, so we can
       # avoid lemmatization entirely.
