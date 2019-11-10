@@ -27,7 +27,12 @@ module Cadmium
       tagged_tokens = Array(Token).new
       @classifier.load_model(@model)
       @classifier.classify(tokens).to_a.each do |token_and_tag|
-        tagged_tokens << Token.new(token_and_tag.first, token_and_tag.last.upcase, tag_map[token_and_tag.last.upcase][:univ_pos])
+        tag_map_infos = tag_map[token_and_tag.last.upcase]
+        univ_pos = tag_map_infos[:univ_pos]
+        tag_map_infos = tag_map_infos.to_h
+        tag_map_infos.shift
+        morphology = tag_map_infos
+        tagged_tokens << Token.new(verbatim: token_and_tag.first, pos: token_and_tag.last.upcase, univ_pos: univ_pos, morphology: morphology)
       end
       tagged_tokens
     end
