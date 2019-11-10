@@ -35,11 +35,11 @@ module Cadmium
       # avoid lemmatization entirely.
       return false if @morphology.nil?
       # others = @morphology.keys.map { |key| !["Number", "POS", "VerbForm", "Tense"].includes?(key) }
-      return true if @univ_pos == :noun && @morphology["number"] == "sing"
-      return true if @univ_pos == :verb && @morphology["verbform"] == "inf"
+      return true if @univ_pos == :noun && @morphology.not_nil!["number"] == "sing"
+      return true if @univ_pos == :verb && @morphology.not_nil!["verbform"] == "inf"
       # return true if @univ_pos == :verb && (@morphology["verbform"] == "fin" && @morphology["tense"] == "pres" && @morphology["number"].nil? && others.empty?)
-      return true if @univ_pos == :adj && @morphology["degree"] == "pos"
-      return true if @morphology.values.includes?(["VerbForm_inf", "VerbForm_none", "Number_sing", "Degree_pos"])
+      return true if @univ_pos == :adj && @morphology.not_nil!["degree"] == "pos"
+      return true if @morphology.not_nil!.values.includes?(["VerbForm_inf", "VerbForm_none", "Number_sing", "Degree_pos"])
       false
     end
   end
