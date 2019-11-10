@@ -1,5 +1,5 @@
 module Cadmium
-  struct Corpus
+  class Corpus
     property documents : Array(Document)
 
     def initialize(document)
@@ -12,7 +12,7 @@ module Cadmium
   end
 
   # a document which contains human text.
-  struct Document
+  class Document
     property verbatim : String
     property language : Symbol
     property sentences : Array(Sentence)
@@ -32,7 +32,7 @@ module Cadmium
     end
   end
 
-  struct Sentence
+  class Sentence
     property verbatim : String
     property language : Symbol
     property tokens : Array(Token)
