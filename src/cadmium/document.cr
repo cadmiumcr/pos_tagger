@@ -21,7 +21,7 @@ module Cadmium
     def initialize(verbatim = "", language = :en, pos_tag = false)
       @verbatim = verbatim
       @language = language
-      sentences = Cadmium::Util::Sentence.sentences(@verbatim)
+      sentences = @verbatim.tokenize(Tokenizer::Sentence)
       @sentences = sentences.map do |sentence|
         Sentence.new(verbatim: sentence, language: @language, pos_tag: pos_tag)
       end
