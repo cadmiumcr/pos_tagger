@@ -39,7 +39,7 @@ module Cadmium
         "RBS":  {univ_pos: :adv, "Degree": "sup"},
         "RP":   {univ_pos: :adp},
         "SP":   {univ_pos: :space},
-        "sym":  {univ_pos: :sym},
+        "SYM":  {univ_pos: :sym},
         "TO":   {univ_pos: :part, "PartType": "inf", "VerbForm": "inf"},
         "UH":   {univ_pos: :intj},
         "VB":   {univ_pos: :verb, "VerbForm": "inf"},
