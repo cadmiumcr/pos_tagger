@@ -41,6 +41,8 @@ module Cadmium
       return true if @univ_pos == :adj && @morphology.not_nil!["degree"] == "pos"
       return true if @morphology.not_nil!.values.includes?(["VerbForm_inf", "VerbForm_none", "Number_sing", "Degree_pos"])
       false
+    rescue
+      false
     end
   end
 end

@@ -16,7 +16,6 @@ module Cadmium
     property verbatim : String
     property language : Symbol
     property sentences : Array(Sentence)
-    property readability : Float64 = 0.0
 
     def initialize(verbatim = "", language = :en, pos_tag = false)
       @verbatim = verbatim

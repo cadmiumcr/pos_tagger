@@ -9,6 +9,52 @@ module Cadmium
     property model : String
     property language : Symbol = :en
 
+    PUNCTUATIONS = "" +
+                   "’'" +       # apostrophe
+                   "()[]{}<>" + # brackets
+                   ":" +        # colon
+                   "," +        # comma
+                   "‒–—―" +     # dashes
+                   "…" +        # ellipsis
+                   "!" +        # exclamation mark
+                   "." +        # full stop/period
+                   "«»" +       # guillemets
+                   "-‐" +       # hyphen
+                   "?" +        # question mark
+                   "‘’“”" +     # quotation marks
+                   ";" +        # semicolon
+                   "/" +        # slash/stroke
+                   "⁄" +        # solidus
+                   "␠" +        # space?
+                   "·" +        # interpunct
+                   "&" +        # ampersand
+                   "@" +        # at sign
+                   "*" +        # asterisk
+                   "\\" +       # backslash
+                   "•" +        # bullet
+                   "^" +        # caret
+                   "¤¢$€£¥₩₪" + # currency
+                   "†‡" +       # dagger
+                   "°" +        # degree
+                   "¡" +        # inverted exclamation point
+                   "¿" +        # inverted question mark
+                   "¬" +        # negation
+                   "#" +        # number sign (hashtag)
+                   "№" +        # numero sign ()
+                   "%‰‱" +      # percent and related signs
+                   "¶" +        # pilcrow
+                   "′" +        # prime
+                   "§" +        # section sign
+                   "~" +        # tilde/swung dash
+                   "¨" +        # umlaut/diaeresis
+                   "_" +        # underscore/understrike
+                   "|¦" +       # vertical/pipe/broken bar
+                   "⁂" +        # asterism
+                   "☞" +        # index/fist
+                   "∴" +        # therefore sign
+                   "‽" +        # interrobang
+                   "※"          # reference mark
+
     def initialize(classifier = DEFAULT_CLASSIFIER, model = DEFAULT_MODEL_PATH, language = :en)
       @classifier = classifier
       @model = model
@@ -20,7 +66,8 @@ module Cadmium
 
     def tag(tokens : Array(String) | String) : Array(Token)
       tokenizer = Cadmium::Tokenizer::Pragmatic.new(
-        language: @language
+        language: @language,
+        downcase: false
       )
       tokens = tokenizer.tokenize(tokens) if tokens.is_a?(String)
       tag_map = get_language_by_code(@language).new.tag_map
@@ -32,7 +79,8 @@ module Cadmium
         tag_map_infos = tag_map_infos.to_h
         tag_map_infos.shift
         morphology = tag_map_infos
-        tagged_tokens << Token.new(verbatim: token_and_tag.first, pos: token_and_tag.last.upcase, univ_pos: univ_pos, morphology: morphology)
+        is_punctuation = PUNCTUATIONS.includes?(token_and_tag.first)
+        tagged_tokens << Token.new(verbatim: token_and_tag.first, pos: token_and_tag.last.upcase, univ_pos: univ_pos, morphology: morphology, is_punctuation: is_punctuation)
       end
       tagged_tokens
     end

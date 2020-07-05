@@ -10,7 +10,7 @@ describe Cadmium::POSTagger do
   end
 
   it "should return an array of tagged tokens" do
-    subject.new.tag(text)[85].univ_pos.should eq(:adv)
+    subject.new.tag(text)[85].univ_pos.should eq(:adp)
   end
 
   it "should translate a POS to its univ_pos equivalent" do
