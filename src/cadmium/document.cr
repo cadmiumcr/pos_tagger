@@ -1,5 +1,6 @@
 module Cadmium
   class Corpus
+    include JSON::Serializable
     property documents : Array(Document)
 
     def initialize(document)
@@ -13,6 +14,7 @@ module Cadmium
 
   # a document which contains human text.
   class Document
+    include JSON::Serializable
     property verbatim : String
     property language : Symbol
     property sentences : Array(Sentence)
@@ -32,6 +34,7 @@ module Cadmium
   end
 
   class Sentence
+    include JSON::Serializable
     property verbatim : String
     property language : Symbol
     property tokens : Array(Token)

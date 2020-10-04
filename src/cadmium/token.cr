@@ -1,6 +1,7 @@
 module Cadmium
   # An individual token — i.e. a word, punctuation symbol, whitespace, etc
   class Token
+    include JSON::Serializable
     property verbatim : String
     property pos : String?
     property univ_pos : Symbol?
@@ -8,7 +9,7 @@ module Cadmium
     property morphology : Hash(Symbol, String | Symbol) | Hash(Symbol, Symbol) | Nil
     property is_start_sentence : Bool
     property is_stop_word : Bool
-    property token_vector : Apatite::Vector(Float64)?
+    # property token_vector : Apatite::Vector(Float64)?
     property lemma : String?
     property is_punctuation : Bool
     property is_oov : Bool = false # Out of vocabulary (ie not present in the pos observation space)
