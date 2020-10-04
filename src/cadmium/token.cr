@@ -24,7 +24,7 @@ module Cadmium
       @is_punctuation = is_punctuation
       @language = language
       @is_stop_word = false
-      @token_vector = nil
+      # @token_vector = nil
     end
 
     def size
