@@ -59,6 +59,7 @@ module Cadmium
       @classifier = classifier
       @model = model
       @language = language
+      @classifier.load_model(@model)
     end
 
     private def to_univ_pos(pos : String, tag_map) : Symbol
@@ -72,7 +73,7 @@ module Cadmium
       tokens = tokenizer.tokenize(tokens) if tokens.is_a?(String)
       tag_map = get_language_by_code(@language).new.tag_map
       tagged_tokens = Array(Token).new
-      @classifier.load_model(@model)
+
       @classifier.classify(tokens).to_a.each do |token_and_tag|
         tag_map_infos = tag_map[token_and_tag.last.upcase]
         univ_pos = tag_map_infos[:univ_pos]
